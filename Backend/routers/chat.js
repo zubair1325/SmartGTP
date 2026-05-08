@@ -33,6 +33,7 @@ router.get(
     if (!oneThread) {
       throw new ExpressError("Chat not found!", 404);
     }
+    console.log(oneThread.message)
     res.json(oneThread.message);
   }),
 );

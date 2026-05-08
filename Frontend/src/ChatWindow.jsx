@@ -10,12 +10,15 @@ function ChatWindow() {
     replay,
     setReplay,
     currentThreadId,
-    prevChats,
+    setNewChat,
     setPrevChats,
+  
   } = useContext(MyContext);
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const getReplay = async () => {
     setLoading(true);
+    setNewChat(false);
     const options = {
       method: "POST",
       headers: {
@@ -56,12 +59,28 @@ function ChatWindow() {
         <span>
           SmartGTP <i className="fa-solid fa-angle-down"></i>
         </span>
-        <div className="userIcon">
+        <div className="userIcon" onClick={() => setIsOpen(!isOpen)}>
           <span>
             <i className="fa-solid fa-user"></i>
           </span>
         </div>
       </div>
+      {isOpen && (
+        <div className="dropDown">
+          <div className="dropDownItem">
+            <i class="fa-solid fa-square-up-right"></i> Upgrade plane
+          </div>
+          <div className="dropDownItem">
+            <i class="fa-solid fa-gear"></i> Setting
+          </div>
+          <div className="dropDownItem">
+            <i class="fa-solid fa-user-pen"></i> Profile 3
+          </div>
+          <div className="dropDownItem">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </div>
+        </div>
+      )}
       <Chat></Chat>
       <ScaleLoader color="#ffffff" loading={loading} />
       <div className="chatInput">

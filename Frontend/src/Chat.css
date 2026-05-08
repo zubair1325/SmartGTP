@@ -2,7 +2,13 @@
   width: 100%;
   max-width: 700px;
   overflow-y: scroll;
+  scrollbar-width: none;
   padding: 8rem;
+  transition: all 0.5s ease-in-out;
+}
+.chats.expandChats {
+  max-width: 1300px;
+  width: 100%;
 }
 .userDiv {
   display: flex;
@@ -28,4 +34,86 @@
 }
 pre {
   white-space: pre-wrap;
+}
+/* ---------------- */
+/* MARKDOWN */
+
+.gtpDiv p {
+  margin: 10px 0;
+}
+
+.gtpDiv ul,
+.gtpDiv ol {
+  padding-left: 24px;
+}
+
+.gtpDiv li {
+  margin: 6px 0;
+}
+
+/* HEADINGS */
+
+.gtpDiv h1,
+.gtpDiv h2,
+.gtpDiv h3,
+.gtpDiv h4,
+.gtpDiv h5,
+.gtpDiv h6 {
+  margin-top: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* TABLES */
+
+.gtpDiv table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.gtpDiv th,
+.gtpDiv td {
+  border: 1px solid #444;
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.gtpDiv th {
+  background: #2b2b2b;
+  font-weight: bold;
+}
+.gtpDiv code {
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: monospace;
+}
+
+/* INLINE CODE */
+
+.gtpDiv :not(pre) > code {
+  background: #333;
+  padding: 2px 6px;
+}
+
+/* BLOCKQUOTE */
+
+.gtpDiv blockquote {
+  border-left: 4px solid #555;
+  padding-left: 12px;
+  margin-left: 0;
+  color: #bbb;
+}
+
+/* LINKS */
+
+.gtpDiv a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.gtpDiv a:hover {
+  text-decoration: underline;
 }

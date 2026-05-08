@@ -13,6 +13,7 @@ function App() {
   const [newChat, setNewChat] = useState(true);
   const [currentThreadId, setCurrentThreadId] = useState(uuidv4());
   const [allThreads, setAllThreads] = useState([]);
+  const [sidebarHideIcon, setSidebarHideIcon] = useState(false);
   const provideValues = {
     prompt,
     setPrompt,
@@ -26,6 +27,8 @@ function App() {
     setPrevChats,
     allThreads,
     setAllThreads,
+    sidebarHideIcon,
+    setSidebarHideIcon,
   };
   return (
     <div className="app container-fluid">
