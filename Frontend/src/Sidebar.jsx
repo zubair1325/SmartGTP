@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import "./Sidebar.css";
 import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { MyContext } from "./MyContext.jsx";
 
 function Sidebar() {
@@ -15,13 +16,25 @@ function Sidebar() {
     setPrevChats,
     sidebarHideIcon,
     setSidebarHideIcon,
+    mobileSidebarOpen,
+    setMobileSidebarOpen,
   } = useContext(MyContext);
 
+  const navigate = useNavigate();
+
   const getAllThreads = async () => {
+    const token = localStorage.getItem("smartgtp_token");
+    console.log(token)
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
     try {
-      const response = await fetch("http://localhost:8080/api/thread/");
+      const response = await fetch("http://localhost:8080/api/thread",options);
       const res = await response.json();
-      console.log(res);
       const filteredData = res.map((thread) => ({
         threadId: thread.threadId,
         title: thread.title,
@@ -31,42 +44,38 @@ function Sidebar() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getAllThreads();
   }, [currentThreadId]);
 
   const createNewChat = () => {
+    const newId = uuidv4();
     setNewChat(true);
     setPrompt("");
     setReplay(null);
-    setCurrentThreadId(uuidv4());
+    setCurrentThreadId(newId);
     setPrevChats([]);
+    setMobileSidebarOpen(false);
+    navigate("/");
   };
+
   const changeThread = async (threadId) => {
-    console.log(threadId);
-    setCurrentThreadId(threadId);
-    try {
-      const response = await fetch(
-        `http://localhost:8080/api/thread/${threadId}`,
-      );
-      const res = await response.json();
-      setPrevChats(res);
-      setNewChat(false);
-      setReplay(null);
-    } catch (error) {
-      console.log(error);
-    }
+    setMobileSidebarOpen(false);
+    // Navigate to the thread URL — ChatLayout will load it
+    navigate(`/thread/${threadId}`);
   };
+
   const deleteThread = async (threadId) => {
     try {
       const response = await fetch(
         `http://localhost:8080/api/thread/${threadId}`,
-        { method: "DELEte" },
+        { method: "DELETE" },
       );
       const res = await response.json();
       console.log(res);
       setAllThreads((prev) =>
-        prev.filter((thread) => thread.threadId != threadId),
+        prev.filter((thread) => thread.threadId !== threadId),
       );
       if (threadId === currentThreadId) {
         createNewChat();
@@ -76,16 +85,17 @@ function Sidebar() {
     }
   };
 
-  const toggleSideBarIcon = () => {
-    setSidebarHideIcon(!sidebarHideIcon);
-  };
   return (
-    <section className="sidebar">
+    <section
+      className={`sidebar ${sidebarHideIcon ? "collapsed" : ""} ${
+        mobileSidebarOpen ? "mobile-open" : ""
+      }`}
+    >
       <button onClick={createNewChat}>
         <img
           className="logo"
-          src="../src/assets/blacklogo.png"
-          alt="SmartGTP LoGo"
+          src="/src/assets/blacklogo.png"
+          alt="SmartGTP Logo"
         />
         <span>
           <i className="fa-solid fa-pen-to-square"></i>
@@ -112,21 +122,36 @@ function Sidebar() {
           </li>
         ))}
       </ul>
+
       <div className="sing">
         <p>By Md. Zubair Rahman</p>
+        <div className="accountInfo">
+          <a
+            href="https://www.linkedin.com/in/md-zubair-rahman"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i className="fa-brands fa-square-linkedin"></i> Linkedin
+          </a>
+          &nbsp;&nbsp;&nbsp;
+          <a
+            href="https://github.com/zubair1325/SmartGTP.git"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i className="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
       </div>
+
+      {/* Desktop toggle */}
       <div className="sideBarToggle">
-        {sidebarHideIcon ? (
-          <i
-            className="fa-solid fa-angles-right showSideBar"
-            onClick={toggleSideBarIcon}
-          ></i>
-        ) : (
-          <i
-            className="fa-solid fa-angles-left hideSideBar"
-            onClick={toggleSideBarIcon}
-          ></i>
-        )}
+        <i
+          className={`fa-solid ${
+            sidebarHideIcon ? "fa-angles-right" : "fa-angles-left"
+          }`}
+          onClick={() => setSidebarHideIcon(!sidebarHideIcon)}
+        ></i>
       </div>
     </section>
   );

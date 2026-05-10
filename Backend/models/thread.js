@@ -17,6 +17,10 @@ const MessageSchema = new mongoose.Schema({
 });
 
 const ThreadSchema = new mongoose.Schema({
+  threadOwnerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   threadId: {
     type: String,
     required: true,

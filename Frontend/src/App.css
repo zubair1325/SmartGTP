@@ -1,14 +1,33 @@
 * {
   color: #ececec;
-  font-family: Roboto, "Open Sans", "Helvetica Neue", "sans-serif";
+  font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   padding: 0;
 }
-.app{
-    background-color: #212121;
-    display: flex;
-    height: 100vh;
+
+.app {
+  background-color: #212121;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+@media (max-width: 768px) {
+  .sidebar-overlay.active {
+    display: block;
+  }
 }

@@ -61,17 +61,16 @@ function Chat() {
       if (index >= replay.length) {
         clearInterval(interval);
       }
-    }, 0.000003);
+    }, 1);
 
     return () => clearInterval(interval);
-  }, [prevChats, replay]);
+  }, [ replay]);
 
   return (
     <>
       {newChat && <h1>Start a New Chat!</h1>}
 
-      <div sidebarHideIcon className={sidebarHideIcon ?"chats expandChats" :"chats"}>
-        {/* Previous Messages */}
+      <div  className={sidebarHideIcon ?"chats expandChats" :"chats"}>
         {prevChats?.slice(0, -1).map((chat, index) => (
           <div
             key={index}
@@ -90,7 +89,6 @@ function Chat() {
           </div>
         ))}
 
-        {/* Latest AI Reply */}
         {prevChats.length > 0 && (
           <>
             {latestReply === null ? (

@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import ExpressError from "./utils/ExpressError.js";
 import router from "./routers/chat.js";
+import authRoutes from "./routers/auth.js";
 
 const app = express();
 const PORT = 8080;
@@ -22,10 +23,16 @@ async function main() {
     console.log("Filed to connect with DB\n" + error);
   }
 }
-
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173", 
+//     credentials: true,
+//   }),
+// );
 app.use(express.json());
 app.use(cors());
 
+app.use("/api/auth", authRoutes);
 app.use("/api", router);
 
 app.all("*path", (req, res, next) => {

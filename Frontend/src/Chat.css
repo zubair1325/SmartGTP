@@ -1,43 +1,50 @@
 .chats {
   width: 100%;
   max-width: 700px;
-  overflow-y: scroll;
+  overflow-y: auto;
   scrollbar-width: none;
-  padding: 8rem;
-  transition: all 0.5s ease-in-out;
+  padding: 2rem 1.5rem;
+  flex: 1;
+  transition: max-width 0.3s ease-in-out;
 }
+
 .chats.expandChats {
-  max-width: 1300px;
-  width: 100%;
+  max-width: 1100px;
 }
+
 .userDiv {
   display: flex;
   justify-content: flex-end;
   font-size: 1rem;
+  margin-bottom: 0.8rem;
 }
+
 .userMessage {
   background-color: #323232;
   padding: 10px 20px;
   border-radius: 14px;
-  margin-left: 15rem;
-  max-width: 500px;
+  max-width: 70%;
   width: fit-content;
+  text-align: left;
+  word-wrap: break-word;
 }
 
 .gtpDiv {
   text-align: left;
   font-size: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .hljs {
   border-radius: 14px !important;
 }
+
 pre {
   white-space: pre-wrap;
+  overflow-x: auto;
 }
-/* ---------------- */
-/* MARKDOWN */
 
+/* MARKDOWN */
 .gtpDiv p {
   margin: 10px 0;
 }
@@ -51,8 +58,6 @@ pre {
   margin: 6px 0;
 }
 
-/* HEADINGS */
-
 .gtpDiv h1,
 .gtpDiv h2,
 .gtpDiv h3,
@@ -64,13 +69,13 @@ pre {
   font-weight: bold;
 }
 
-/* TABLES */
-
 .gtpDiv table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 14px;
   margin-bottom: 14px;
+  display: block;
+  overflow-x: auto;
 }
 
 .gtpDiv th,
@@ -79,26 +84,24 @@ pre {
   padding: 10px;
   text-align: left;
   vertical-align: top;
+  white-space: nowrap;
 }
 
 .gtpDiv th {
   background: #2b2b2b;
   font-weight: bold;
 }
+
 .gtpDiv code {
   border-radius: 4px;
   font-size: 14px;
   font-family: monospace;
 }
 
-/* INLINE CODE */
-
 .gtpDiv :not(pre) > code {
   background: #333;
   padding: 2px 6px;
 }
-
-/* BLOCKQUOTE */
 
 .gtpDiv blockquote {
   border-left: 4px solid #555;
@@ -107,8 +110,6 @@ pre {
   color: #bbb;
 }
 
-/* LINKS */
-
 .gtpDiv a {
   color: #60a5fa;
   text-decoration: none;
@@ -116,4 +117,51 @@ pre {
 
 .gtpDiv a:hover {
   text-decoration: underline;
+}
+
+/*TABLET */
+@media (max-width: 1024px) {
+  .chats {
+    max-width: 100%;
+    padding: 2rem 2rem;
+  }
+
+  .chats.expandChats {
+    max-width: 100%;
+  }
+}
+
+/*MOBILE */
+@media (max-width: 768px) {
+  .chats {
+    padding: 1.2rem 1rem;
+    max-width: 100%;
+  }
+
+  .userMessage {
+    max-width: 85%;
+    padding: 8px 14px;
+    margin-left: 0;
+  }
+
+  .gtpDiv {
+    font-size: 0.95rem;
+  }
+
+  .gtpDiv th,
+  .gtpDiv td {
+    padding: 6px 8px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .chats {
+    padding: 1rem 0.75rem;
+  }
+
+  .userMessage {
+    max-width: 90%;
+    font-size: 0.9rem;
+  }
 }
