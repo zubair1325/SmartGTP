@@ -15,7 +15,6 @@ function Sidebar() {
     setCurrentThreadId,
     setPrevChats,
     sidebarHideIcon,
-    setSidebarHideIcon,
     mobileSidebarOpen,
     setMobileSidebarOpen,
   } = useContext(MyContext);
@@ -24,7 +23,7 @@ function Sidebar() {
 
   const getAllThreads = async () => {
     const token = localStorage.getItem("smartgtp_token");
-    console.log(token)
+    console.log(token);
     const options = {
       method: "GET",
       headers: {
@@ -33,7 +32,7 @@ function Sidebar() {
       },
     };
     try {
-      const response = await fetch("http://localhost:8080/api/thread",options);
+      const response = await fetch("http://localhost:8080/api/thread", options);
       const res = await response.json();
       const filteredData = res.map((thread) => ({
         threadId: thread.threadId,
@@ -142,16 +141,6 @@ function Sidebar() {
             <i className="fa-brands fa-github"></i> GitHub
           </a>
         </div>
-      </div>
-
-      {/* Desktop toggle */}
-      <div className="sideBarToggle">
-        <i
-          className={`fa-solid ${
-            sidebarHideIcon ? "fa-angles-right" : "fa-angles-left"
-          }`}
-          onClick={() => setSidebarHideIcon(!sidebarHideIcon)}
-        ></i>
       </div>
     </section>
   );

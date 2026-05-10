@@ -64,13 +64,13 @@ function Chat() {
     }, 1);
 
     return () => clearInterval(interval);
-  }, [ replay]);
+  }, [replay]);
 
   return (
     <>
       {newChat && <h1>Start a New Chat!</h1>}
 
-      <div  className={sidebarHideIcon ?"chats expandChats" :"chats"}>
+      <div className={sidebarHideIcon ? "chats expandChats" : "chats"}>
         {prevChats?.slice(0, -1).map((chat, index) => (
           <div
             key={index}

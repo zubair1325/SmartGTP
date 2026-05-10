@@ -12,9 +12,11 @@ function ChatWindow() {
     replay,
     setReplay,
     currentThreadId,
+    newChat,
     setNewChat,
     setPrevChats,
     sidebarHideIcon,
+    setSidebarHideIcon,
     mobileSidebarOpen,
     setMobileSidebarOpen,
     user,
@@ -31,6 +33,7 @@ function ChatWindow() {
 
   useEffect(() => {
     if (!currentThreadId) return;
+    if (newChat) return;
 
     const checkOwnerStatus = async () => {
       try {
@@ -121,6 +124,7 @@ function ChatWindow() {
           onClick={(e) => {
             e.stopPropagation();
             setMobileSidebarOpen(!mobileSidebarOpen);
+            setSidebarHideIcon(false);
           }}
           aria-label="Toggle sidebar"
         >
@@ -216,12 +220,6 @@ function ChatWindow() {
               Upgrade plan
             </a>
           </div>
-          <div className="dropDownItem">
-            <i className="fa-solid fa-gear"></i> Settings
-          </div>
-          <div className="dropDownItem">
-            <i className="fa-solid fa-user-pen"></i> Profile
-          </div>
           <div className="dropDownItem logoutItem" onClick={handleLogout}>
             <i className="fa-solid fa-right-from-bracket"></i> Logout
           </div>
@@ -266,6 +264,15 @@ function ChatWindow() {
             See Cookie Preferences
           </a>
         </p>
+      </div>
+
+      <div className="sideBarToggle">
+        <i
+          className={`fa-solid ${
+            sidebarHideIcon ? "fa-angles-right" : "fa-angles-left"
+          }`}
+          onClick={() => setSidebarHideIcon(!sidebarHideIcon)}
+        ></i>
       </div>
     </div>
   );

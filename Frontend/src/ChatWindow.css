@@ -314,3 +314,25 @@
   .navbar > span { font-size: 1rem; }
   .inputBox textarea { font-size: 0.9rem; }
 }
+
+
+/* Desktop toggle button - inside sidebar at top right */
+.sideBarToggle {
+  position: absolute;
+  left: 0%;
+  top: 50%;
+  z-index: 200;
+}
+
+.sideBarToggle i {
+  font-size: 1.1rem;
+  cursor: pointer;
+  background-color: #2e2d2d;
+  padding: 6px 8px;
+  border-radius: 0 6px 6px 0;
+
+}
+
+.sideBarToggle i:hover {
+  color: #fff;
+}

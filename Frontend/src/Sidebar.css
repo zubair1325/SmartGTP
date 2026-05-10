@@ -8,7 +8,10 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  transition: transform 0.3s ease-in-out, min-width 0.3s ease-in-out, width 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    min-width 0.3s ease-in-out,
+    width 0.3s ease-in-out;
   z-index: 100;
   flex-shrink: 0;
 }
@@ -118,10 +121,10 @@ button:hover {
 }
 
 /* Desktop toggle button - inside sidebar at top right */
-.sideBarToggle {
+/* .sideBarToggle {
   position: absolute;
   right: -36px;
-  top: 14px;
+  top: 50%;
   z-index: 200;
 }
 
@@ -135,7 +138,7 @@ button:hover {
 
 .sideBarToggle i:hover {
   color: #fff;
-}
+} */
 
 /*TABLET (768px - 1024px)*/
 @media (max-width: 1024px) {
