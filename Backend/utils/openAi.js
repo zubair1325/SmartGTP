@@ -9,7 +9,7 @@ const getOpenAIResponse = async (message) => {
       Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
     },
     body: JSON.stringify({
-      model: "openai/gpt-oss-20b",
+      model: "groq/compound-mini",
       messages: [
         {
           role: "user",

@@ -95,9 +95,11 @@ function ChatWindow() {
         { role: "user", content: prompt },
         { role: "assistant", content: replay },
       ]);
+
       // Update URL to reflect the current thread after first message
       navigate(`/thread/${currentThreadId}`, { replace: true });
     }
+
     setPrompt("");
   }, [replay]);
 
@@ -233,6 +235,12 @@ function ChatWindow() {
       <div className="chatInput">
         {chatOwnerStatus && (
           <div className="inputBox">
+            {/* <div className="uploadFile">
+              <label htmlFor="fileUpload" className="uploadIcon">
+                <i className="fa-solid fa-plus"></i>
+              </label>
+              <input type="file" id="fileUpload" style={{ display: "none" }} />
+            </div> */}
             <textarea
               rows="1"
               placeholder="Ask anything..."

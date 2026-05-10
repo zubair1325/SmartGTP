@@ -43,9 +43,9 @@ function Chat() {
   };
 
   // Typing animation
+
   useEffect(() => {
     if (replay == null) {
-      setLatestReply(null);
       return;
     }
 
