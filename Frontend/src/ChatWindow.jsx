@@ -21,6 +21,7 @@ function ChatWindow() {
     setMobileSidebarOpen,
     user,
     setUser,
+    setLatestReply,
   } = useContext(MyContext);
 
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ function ChatWindow() {
         formData.append("audio", audioBlob, "recording.webm");
 
         const response = await fetch(
-          "http://localhost:8080/api/speech-to-text",
+          `${import.meta.env.VITE_BACKEND_URL}/api/speech-to-text`,
           {
             method: "POST",
             body: formData,
@@ -71,7 +72,7 @@ function ChatWindow() {
         );
 
         const data = await response.json();
-
+        setLatestReply(null);
         setPrompt(data.text);
       };
 
@@ -103,7 +104,7 @@ function ChatWindow() {
         const token = localStorage.getItem("smartgtp_token");
 
         const response = await fetch(
-          `http://localhost:8080/api/thread/${currentThreadId}/owner`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/thread/${currentThreadId}/owner`,
           {
             method: "GET",
             headers: {
@@ -141,7 +142,10 @@ function ChatWindow() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/chat", options);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/chat`,
+        options,
+      );
       const res = await response.json();
       setReplay(res.reply);
     } catch (error) {
@@ -178,7 +182,7 @@ function ChatWindow() {
     setIsSharing(false);
   };
 
-  const shareUrl = `http://localhost:5173/thread/${currentThreadId}`;
+  const shareUrl = `${import.meta.env.VITE_FRONTEND_URL}/thread/${currentThreadId}`;
 
   return (
     <div className="chatWindow" onClick={handleWindowClick}>
@@ -299,11 +303,6 @@ function ChatWindow() {
         {chatOwnerStatus && (
           <div className="inputBox">
             <div className="audioInput">
-              {/* <label htmlFor="fileUpload" className="uploadIcon">
-                <i className="fa-solid fa-plus"></i>
-              </label>
-              <input type="file" id="fileUpload" style={{ display: "none" }} /> */}
-
               {!recording ? (
                 <i
                   className="fa-solid fa-microphone microphoneActive"

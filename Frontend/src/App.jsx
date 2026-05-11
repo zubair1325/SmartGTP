@@ -20,24 +20,42 @@ function App() {
     const saved = localStorage.getItem("smartgtp_user");
     return saved ? JSON.parse(saved) : null;
   });
+  const [latestReply, setLatestReply] = useState(null);
 
   const provideValues = {
-    prompt, setPrompt,
-    replay, setReplay,
-    currentThreadId, setCurrentThreadId,
-    newChat, setNewChat,
-    prevChats, setPrevChats,
-    allThreads, setAllThreads,
-    sidebarHideIcon, setSidebarHideIcon,
-    mobileSidebarOpen, setMobileSidebarOpen,
-    user, setUser,
+    prompt,
+    setPrompt,
+    replay,
+    setReplay,
+    currentThreadId,
+    setCurrentThreadId,
+    newChat,
+    setNewChat,
+    prevChats,
+    setPrevChats,
+    allThreads,
+    setAllThreads,
+    sidebarHideIcon,
+    setSidebarHideIcon,
+    mobileSidebarOpen,
+    setMobileSidebarOpen,
+    user,
+    setUser,
+    latestReply,
+    setLatestReply,
   };
 
   return (
     <MyContext.Provider value={provideValues}>
       <Routes>
-        <Route path="/login" element={!user ? <Login /> : <Navigate to="/" replace />} />
-        <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" replace />} />
+        <Route
+          path="/login"
+          element={!user ? <Login /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/signup"
+          element={!user ? <Signup /> : <Navigate to="/" replace />}
+        />
         <Route
           path="/"
           element={user ? <ChatLayout /> : <Navigate to="/login" replace />}

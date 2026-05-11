@@ -7,7 +7,7 @@ import router from "./routers/chat.js";
 import authRoutes from "./routers/auth.js";
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 main()
   .then(() => {
@@ -23,14 +23,14 @@ async function main() {
     console.log("Filed to connect with DB\n" + error);
   }
 }
-// app.use(
-//   cors({
-//     origin: "http://localhost:5173", 
-//     credentials: true,
-//   }),
-// );
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }),
+);
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api", router);

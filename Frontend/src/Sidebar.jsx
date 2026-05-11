@@ -32,7 +32,10 @@ function Sidebar() {
       },
     };
     try {
-      const response = await fetch("http://localhost:8080/api/thread", options);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/thread`,
+        options,
+      );
       const res = await response.json();
       const filteredData = res.map((thread) => ({
         threadId: thread.threadId,
@@ -68,7 +71,7 @@ function Sidebar() {
   const deleteThread = async (threadId) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/thread/${threadId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/thread/${threadId}`,
         { method: "DELETE" },
       );
       const res = await response.json();

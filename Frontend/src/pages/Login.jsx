@@ -23,11 +23,14 @@ function Login() {
     }
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        },
+      );
       const data = await res.json();
       if (!res.ok) {
         setError(data.message || "Login failed. Please try again.");
@@ -38,7 +41,7 @@ function Login() {
         navigate("/");
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       setError("Cannot reach server. Make sure the backend is running.");
     }
     setLoading(false);

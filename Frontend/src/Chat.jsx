@@ -5,13 +5,20 @@ import remarkGfm from "remark-gfm";
 import "highlight.js/styles/github-dark.css";
 import "./Chat.css";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { MyContext } from "./MyContext.jsx";
 
 function Chat() {
-  const { newChat, prevChats, replay, sidebarHideIcon } = useContext(MyContext);
+  const {
+    newChat,
+    prevChats,
+    replay,
+    sidebarHideIcon,
+    latestReply,
+    setLatestReply,
+  } = useContext(MyContext);
 
-  const [latestReply, setLatestReply] = useState(null);
+  // const [latestReply, setLatestReply] = useState(null);
 
   // Format AI response into cleaner markdown
   const formatMarkdown = (text) => {
@@ -50,6 +57,7 @@ function Chat() {
     }
 
     if (!prevChats?.length) return;
+    setLatestReply(null);
 
     let index = 0;
 
@@ -61,7 +69,7 @@ function Chat() {
       if (index >= replay.length) {
         clearInterval(interval);
       }
-    }, 1);
+    }, 10);
 
     return () => clearInterval(interval);
   }, [replay]);

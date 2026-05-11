@@ -26,7 +26,7 @@ function ChatLayout() {
       setNewChat(false);
       setReplay(null);
 
-      fetch(`http://localhost:8080/api/thread/${urlThreadId}`)
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/thread/${urlThreadId}`)
         .then((r) => r.json())
         .then((messages) => {
           setPrevChats(messages);
