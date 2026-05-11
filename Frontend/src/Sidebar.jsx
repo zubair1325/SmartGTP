@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import "./Sidebar.css";
-import blacklogo from "../assets/blacklogo.png";
+import blacklogo from "./assets/blacklogo.png";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "./MyContext.jsx";
