@@ -1,7 +1,7 @@
 import express from "express";
 import Thread from "../models/thread.js";
 import wrapAsync from "../utils/wrapAsync.js";
-import getOpenAIResponse from "../utils/openai.js";
+import getOpenAIResponse from "../utils/openAi.js";
 import ExpressError from "../utils/ExpressError.js";
 import protect from "../middleware/protect.js";
 import multer from "multer";
@@ -137,7 +137,6 @@ router.get(
     });
   }),
 );
-
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
