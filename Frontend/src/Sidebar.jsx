@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import "./Sidebar.css";
+import blacklogo from "../assets/blacklogo.png";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "./MyContext.jsx";
@@ -94,11 +95,7 @@ function Sidebar() {
       }`}
     >
       <button onClick={createNewChat}>
-        <img
-          className="logo"
-          src="/src/assets/blacklogo.png"
-          alt="SmartGTP Logo"
-        />
+        <img className="logo" src={blacklogo} alt="SmartGTP" />
         <span>
           <i className="fa-solid fa-pen-to-square"></i>
         </span>

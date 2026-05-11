@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MyContext } from "../MyContext.jsx";
 import "./Auth.css";
+import blacklogo from "../assets/blacklogo.png";
 
 function Signup() {
   const { setUser } = useContext(MyContext);
@@ -69,7 +70,7 @@ function Signup() {
     <div className="authPage">
       <div className="authCard">
         <div className="authLogo">
-          <img src="/src/assets/blacklogo.png" alt="SmartGTP" />
+         <img src={blacklogo} alt="SmartGTP" />
           <h1>SmartGTP</h1>
         </div>
 
