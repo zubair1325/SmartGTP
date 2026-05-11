@@ -389,13 +389,16 @@
 .sideBarToggle i:hover {
   color: #fff;
 }
-.uploadFile {
+.audioInput {
   margin-right: 12px;
 }
-.uploadFile label i {
-  font-size: 1.2rem;
+.audioInput i {
+  font-size:1.6rem;
   cursor: pointer;
 }
-.uploadFile label i:hover {
+.audioInput .microphoneInactive {
+ color: red;
+}
+.audioInput label i:hover {
   color: rgba(180, 180, 180, 1);
 }

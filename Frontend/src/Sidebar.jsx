@@ -140,6 +140,9 @@ function Sidebar() {
           >
             <i className="fa-brands fa-github"></i> GitHub
           </a>
+          <p>
+            <i class="fa-solid fa-envelope"></i> zubair01325@gmail.com
+          </p>
         </div>
       </div>
     </section>

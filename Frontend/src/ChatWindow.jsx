@@ -2,7 +2,7 @@ import { ScaleLoader } from "react-spinners";
 import "./ChatWindow.css";
 import Chat from "./Chat.jsx";
 import { MyContext } from "./MyContext.jsx";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ChatWindow() {
@@ -30,6 +30,69 @@ function ChatWindow() {
   const [shareLink, setShareLink] = useState(false);
   const [copyIcon, setCopyIcon] = useState(false);
   const [chatOwnerStatus, setChatOwnerStatus] = useState(true);
+
+  // --------------------
+  const [recording, setRecording] = useState(false);
+
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
+
+      const mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorderRef.current = mediaRecorder;
+
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        audioChunksRef.current.push(event.data);
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, {
+          type: "audio/webm",
+        });
+
+        const formData = new FormData();
+
+        formData.append("audio", audioBlob, "recording.webm");
+
+        const response = await fetch(
+          "http://localhost:8080/api/speech-to-text",
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+
+        const data = await response.json();
+
+        setPrompt(data.text);
+      };
+
+      mediaRecorder.start();
+
+      setRecording(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const stopRecording = () => {
+    mediaRecorderRef.current.stop();
+
+    mediaRecorderRef.current.stream
+      .getTracks()
+      .forEach((track) => track.stop());
+
+    setRecording(false);
+  };
+  // ---------------
 
   useEffect(() => {
     if (!currentThreadId) return;
@@ -235,12 +298,24 @@ function ChatWindow() {
       <div className="chatInput">
         {chatOwnerStatus && (
           <div className="inputBox">
-            {/* <div className="uploadFile">
-              <label htmlFor="fileUpload" className="uploadIcon">
+            <div className="audioInput">
+              {/* <label htmlFor="fileUpload" className="uploadIcon">
                 <i className="fa-solid fa-plus"></i>
               </label>
-              <input type="file" id="fileUpload" style={{ display: "none" }} />
-            </div> */}
+              <input type="file" id="fileUpload" style={{ display: "none" }} /> */}
+
+              {!recording ? (
+                <i
+                  className="fa-solid fa-microphone microphoneActive"
+                  onClick={startRecording}
+                ></i>
+              ) : (
+                <i
+                  className="fa-solid fa-microphone-slash microphoneInactive"
+                  onClick={stopRecording}
+                ></i>
+              )}
+            </div>
             <textarea
               rows="1"
               placeholder="Ask anything..."
