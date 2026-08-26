@@ -2,6 +2,9 @@
 
 SmartGTP is a modern AI-powered chat application inspired by ChatGPT, built using the **MERN Stack** with **Groq AI APIs** for ultra-fast AI responses and speech-to-text transcription.
 
+# Live Demo:
+https://smartgtp.onrender.com
+
 The project includes:
 
 * 🔐 JWT Authentication
